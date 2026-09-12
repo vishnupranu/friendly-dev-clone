@@ -10,33 +10,79 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as BuildRouteImport } from './routes/build'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ApiPublicVoiceoverRouteImport } from './routes/api/public/voiceover'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuildRoute = BuildRouteImport.update({
+  id: '/build',
+  path: '/build',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicVoiceoverRoute = ApiPublicVoiceoverRouteImport.update({
+  id: '/api/public/voiceover',
+  path: '/api/public/voiceover',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/build': typeof BuildRoute
+  '/dashboard': typeof DashboardRoute
+  '/api/public/voiceover': typeof ApiPublicVoiceoverRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/build': typeof BuildRoute
+  '/dashboard': typeof DashboardRoute
+  '/api/public/voiceover': typeof ApiPublicVoiceoverRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/build': typeof BuildRoute
+  '/dashboard': typeof DashboardRoute
+  '/api/public/voiceover': typeof ApiPublicVoiceoverRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/auth' | '/build' | '/dashboard' | '/api/public/voiceover'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/auth' | '/build' | '/dashboard' | '/api/public/voiceover'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/build'
+    | '/dashboard'
+    | '/api/public/voiceover'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
+  BuildRoute: typeof BuildRoute
+  DashboardRoute: typeof DashboardRoute
+  ApiPublicVoiceoverRoute: typeof ApiPublicVoiceoverRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +94,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/build': {
+      id: '/build'
+      path: '/build'
+      fullPath: '/build'
+      preLoaderRoute: typeof BuildRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/voiceover': {
+      id: '/api/public/voiceover'
+      path: '/api/public/voiceover'
+      fullPath: '/api/public/voiceover'
+      preLoaderRoute: typeof ApiPublicVoiceoverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
+  BuildRoute: BuildRoute,
+  DashboardRoute: DashboardRoute,
+  ApiPublicVoiceoverRoute: ApiPublicVoiceoverRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
